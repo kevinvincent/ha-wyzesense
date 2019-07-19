@@ -1,7 +1,7 @@
 # wyzesense component
 
 ## Installation
-Download as zip, unzip, and place `wyzesense` under `/config/custom_components/`
+Download this repository as a ZIP (green button, top right), unzip, and place `wyzesense` under `/config/custom_components/`
 
 Plug in the wyzesense hub (the usb device) into an open port on your device.
 

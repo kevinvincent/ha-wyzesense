@@ -36,4 +36,5 @@ logger:
 2. Restart HA
 3. Verify you're still having the issue
 4. File an issue in this Github Repository containing your HA log (Developer section > Information > Load Full Home Assistant Log)
+  * The log file can also be found at `/config/home-assistant.log`
 

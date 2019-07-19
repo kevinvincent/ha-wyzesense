@@ -1,0 +1,8 @@
+{
+    "domain": "wyzesense",
+    "name": "Wyze Sense Component",
+    "documentation": "https://github.com/robmarkcole/Hue-sensors-HASS",
+    "requirements": [],
+    "dependencies": [],
+    "codeowners": ["@kevinvincent"]
+}

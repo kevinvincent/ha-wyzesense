@@ -24,3 +24,16 @@ Restart HA and sensors you have already bound to the hub should up with `assumed
 ### `wyzesense.remove`
 * Removes a sensor
 * Make sure you provide the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `213787AF`). Ensure that all letters in it are CAPITAL.
+
+## Running into issues?
+1. Setup your logger to print debug messages for this component using:
+```yaml
+logger:
+  default: info
+  logs:
+    custom_components.wyzesense: debug
+```
+2. Restart HA
+3. Verify you're still having the issue
+4. File an issue in this Github Repository containing your HA log (Developer section > Information > Load Full Home Assistant Log)
+

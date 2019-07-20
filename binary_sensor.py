@@ -483,8 +483,8 @@ class WyzeSense(object):
             return False
         
         sensors = self._GetSensors()
-        for x in sensors:
-            _LOGGER.debug("Sensor found: %s", x)
+#         for x in sensors:
+#             _LOGGER.debug("Sensor found: %s", x)
 
     def Stop(self):
         self.__exit_event.set()

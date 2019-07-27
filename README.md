@@ -18,7 +18,7 @@ binary_sensor:
 ```
 Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mounted somewhere else then add the appropriate device.
 
-Restart HA and the sensors you have already bound to the hub should show up with `assumed_state: true`. The first time the component hears from the sensor the state and the rest of the fields such as battery, signal strength, etc. will be shown.
+Restart HA and the sensors you have already bound to the hub should show up with `assumed_state: true`. The first time the component hears from the sensor, the state and the rest of the fields such as battery, signal strength, etc. will be shown.
 
 ## Services
 ### `wyzesense.scan`

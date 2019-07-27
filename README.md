@@ -1,4 +1,4 @@
-# wyzesense component
+# wyzesense Home Assistant Component
 
 ## Installation
 1. Download this repository as a ZIP (green button, top right)

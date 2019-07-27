@@ -1,7 +1,10 @@
 # wyzesense component
 
 ## Installation
-Download this repository as a ZIP (green button, top right), unzip, rename to `wyzesense`, and place `wyzesense` under `/config/custom_components/`
+1. Download this repository as a ZIP (green button, top right)
+2. Unzip the archive
+3. Rename to just `wyzesense`
+4. Place `wyzesense` under `/config/custom_components/`
 
 Plug in the wyzesense hub (the usb device) into an open port on your device.
 
@@ -23,7 +26,7 @@ Restart HA and the sensors you have already bound to the hub should show up with
 
 ### `wyzesense.remove`
 * Removes a sensor
-* Make sure you provide the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `213787AF`). Ensure that all letters in it are CAPITAL.
+* Make sure you provide the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`).
 
 ## Running into issues?
 1. Setup your logger to print debug messages for this component using:

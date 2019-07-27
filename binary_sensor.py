@@ -42,7 +42,7 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
     try:
 
         def on_event(ws, event):
-            if event.BatteryLevel != 0:
+            if event.BatteryLevel != 0 and event.SignalStrength != 0 :
                 data = {
                     ATTR_AVAILABLE: True,
                     ATTR_MAC: event.MAC,

@@ -4,7 +4,11 @@
 1. Download this repository as a ZIP (green button, top right)
 2. Unzip the archive
 3. Rename to just `wyzesense`
-4. Place `wyzesense` under `/config/custom_components/`
+4. Place `wyzesense` under `<config_dir>/custom_components/`
+   * You will need to create the `custom_components` folder if it does not exist
+   * On Hassio the final location will be `/config/custom_components/wyzesense`
+   * On Hassbian the final location will be `/home/homeassistant/.homeassistant/custom_components/wyzesense`
+   
 
 Plug in the wyzesense hub (the usb device) into an open port on your device.
 
@@ -18,7 +22,8 @@ binary_sensor:
 ```
 Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mounted somewhere else then add the appropriate device.
 
-Restart HA and the sensors you have already bound to the hub should show up with `assumed_state: true`. The first time the component hears from the sensor, the state and the rest of the fields such as battery, signal strength, etc. will be shown.
+## Usage
+Restart HA and the sensors you have already bound to the hub should show up as `off` with `assumed_state: true` and no `device_class`. This is because the hub will not know the state / type of the sensor until it triggers for the first time. The first time the component hears from the sensor, the state and the rest of the fields such as battery, signal strength, etc. will be shown.
 
 ## Services
 ### `wyzesense.scan`

@@ -26,7 +26,7 @@ Restart HA and the sensors you have already bound to the hub should show up with
 
 ### `wyzesense.remove`
 * Removes a sensor
-* Make sure you provide the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`).
+* Make sure you provide the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
 
 ## Running into issues?
 1. Setup your logger to print debug messages for this component using:

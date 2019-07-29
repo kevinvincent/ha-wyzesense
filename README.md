@@ -35,6 +35,16 @@ Entities will show up as `binary_sensor.<MAC>` for example (`binary_sensor.777A4
 * Make sure you provide the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
 
 ## Running into issues?
+
+### Troubleshooting
+* Permission denied /dev/hidraw0
+  * Info
+    * If you see this error on a Hassio installation please follow Reporting an Issue below.
+    * This is known to occur on Hassbian. This occurs when the group homeassistant is denied from accessing hidraw devices.
+  * Solution
+    * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your instance and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="homeassistant"`
+
+### Reporting an Issue
 1. Setup your logger to print debug messages for this component using:
 ```yaml
 logger:

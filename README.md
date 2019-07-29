@@ -1,4 +1,4 @@
-# wyzesense Home Assistant Component
+# WYZE Sense Home Assistant Component
 
 ## Installation
 1. Download this repository as a ZIP (green button, top right)
@@ -8,7 +8,7 @@
    * You will need to create the `custom_components` folder if it does not exist
    * On Hassio the final location will be `/config/custom_components/wyzesense`
    * On Hassbian the final location will be `/home/homeassistant/.homeassistant/custom_components/wyzesense`
-5. Plug in the wyzesense hub (the usb device) into an open port on your device.
+5. Plug in the WYZE Sense hub (the usb device) into an open port on your device.
 
 ## Configuration
 Add the following to your configuration file

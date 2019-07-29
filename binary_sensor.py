@@ -7,8 +7,14 @@ wyzesense integration
 import logging
 import voluptuous as vol
 
-from homeassistant.const import CONF_FILENAME, CONF_DEVICE, EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, ATTR_STATE, ATTR_DEVICE_CLASS, DEVICE_CLASS_SIGNAL_STRENGTH, DEVICE_CLASS_TIMESTAMP
-from homeassistant.components.binary_sensor import PLATFORM_SCHEMA, BinarySensorDevice, DEVICE_CLASS_MOTION, DEVICE_CLASS_DOOR
+from homeassistant.const import CONF_FILENAME, CONF_DEVICE, \
+	EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, \
+	ATTR_STATE, ATTR_DEVICE_CLASS, DEVICE_CLASS_SIGNAL_STRENGTH, \
+	DEVICE_CLASS_TIMESTAMP
+
+from homeassistant.components.binary_sensor import PLATFORM_SCHEMA, \
+	BinarySensorDevice, DEVICE_CLASS_MOTION, DEVICE_CLASS_DOOR
+
 import homeassistant.helpers.config_validation as cv
 
 DOMAIN = "wyzesense"
@@ -39,77 +45,70 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     entities = {}
 
-    try:
-
-        def on_event(ws, event):
-            if event.BatteryLevel != 0 and event.SignalStrength != 0 :
-                data = {
-                    ATTR_AVAILABLE: True,
-                    ATTR_MAC: event.MAC,
-                    ATTR_STATE: 1 if event.State == "open" or event.State == "active" else 0,
-                    ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION if event.Type == "motion" else DEVICE_CLASS_DOOR ,
-                    DEVICE_CLASS_TIMESTAMP: event.Timestamp.isoformat(),
-                    DEVICE_CLASS_SIGNAL_STRENGTH: event.SignalStrength,
-                    ATTR_BATTERY_LEVEL: event.BatteryLevel
-                }
-
-                _LOGGER.debug(data)
-
-                if not event.MAC in entities:
-                    new_entity = WyzeSensor(data)
-                    entities[event.MAC] = new_entity
-                    add_entites([new_entity])
-                else:
-                    entities[event.MAC]._data = data
-                    entities[event.MAC].schedule_update_ha_state()
-
-        ws = wyzesense.Open(config[CONF_DEVICE], on_event)
-
-        # Get bound sensors
-        result = ws.List()
-        _LOGGER.debug("%d Sensors Paired" % len(result))
-
-        for mac in result:
-            _LOGGER.debug("Registering Sensor Entity: %s" % mac)
-
+    def on_event(ws, event):
+        if event.BatteryLevel != 0 and event.SignalStrength != 0 :
             data = {
-                ATTR_AVAILABLE: False,
-                ATTR_MAC: mac,
-                ATTR_STATE: 0,
-                ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION
+                ATTR_AVAILABLE: True,
+                ATTR_MAC: event.MAC,
+                ATTR_STATE: 1 if event.State == "open" or event.State == "active" else 0,
+                ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION if event.Type == "motion" else DEVICE_CLASS_DOOR ,
+                DEVICE_CLASS_TIMESTAMP: event.Timestamp.isoformat(),
+                DEVICE_CLASS_SIGNAL_STRENGTH: event.SignalStrength,
+                ATTR_BATTERY_LEVEL: event.BatteryLevel
             }
 
-            if not mac in entities:
+            _LOGGER.debug(data)
+
+            if not event.MAC in entities:
                 new_entity = WyzeSensor(data)
-                entities[mac] = new_entity
+                entities[event.MAC] = new_entity
                 add_entites([new_entity])
+            else:
+                entities[event.MAC]._data = data
+                entities[event.MAC].schedule_update_ha_state()
 
-        # Configure Destructor
-        def on_shutdown(event):
-            _LOGGER.debug("Closing connection to hub")
-            ws.Stop()
+    ws = wyzesense.Open(config[CONF_DEVICE], on_event)
 
-        hass.bus.listen_once(EVENT_HOMEASSISTANT_STOP, on_shutdown)
+    # Get bound sensors
+    result = ws.List()
+    _LOGGER.debug("%d Sensors Paired" % len(result))
 
-        # Configure Service
-        def on_scan(call):
-            ws.Scan()
+    for mac in result:
+        _LOGGER.debug("Registering Sensor Entity: %s" % mac)
 
-        def on_remove(call):
-            mac = call.data.get(ATTR_MAC).upper()
-            ws.Delete(mac)
-            toDelete = entities[mac]
-            hass.async_add_job(toDelete.async_remove)
-            del entities[mac]
-            _LOGGER.debug("Removed Sensor Entity: %s" % mac)
+        data = {
+            ATTR_AVAILABLE: False,
+            ATTR_MAC: mac,
+            ATTR_STATE: 0,
+            ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION
+        }
 
-        hass.services.async_register(DOMAIN, SERVICE_SCAN, on_scan, SERVICE_SCAN_SCHEMA)
-        hass.services.async_register(DOMAIN, SERVICE_REMOVE, on_remove, SERVICE_REMOVE_SCHEMA)
+        if not mac in entities:
+            new_entity = WyzeSensor(data)
+            entities[mac] = new_entity
+            add_entites([new_entity])
 
-    except Exception as e:
-        _LOGGER.exception(e)
+    # Configure Destructor
+    def on_shutdown(event):
+        _LOGGER.debug("Closing connection to hub")
+        ws.Stop()
 
-    return True
+    hass.bus.listen_once(EVENT_HOMEASSISTANT_STOP, on_shutdown)
+
+    # Configure Service
+    def on_scan(call):
+        ws.Scan()
+
+    def on_remove(call):
+        mac = call.data.get(ATTR_MAC).upper()
+        ws.Delete(mac)
+        toDelete = entities[mac]
+        hass.add_job(toDelete.async_remove)
+        del entities[mac]
+        _LOGGER.debug("Removed Sensor Entity: %s" % mac)
+
+    hass.services.register(DOMAIN, SERVICE_SCAN, on_scan, SERVICE_SCAN_SCHEMA)
+    hass.services.register(DOMAIN, SERVICE_REMOVE, on_remove, SERVICE_REMOVE_SCHEMA)
 
 
 class WyzeSensor(BinarySensorDevice):

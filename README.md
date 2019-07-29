@@ -21,7 +21,10 @@ binary_sensor:
 Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mounted somewhere else then add the appropriate device.
 
 ## Usage
-Restart HA and the sensors you have already bound to the hub will show up in your entities as `off` with `assumed_state: true` and no `device_class`. This is because the hub will not know the state / type of the sensor until it triggers for the first time. The first time the component hears from the sensor, the state and the rest of the fields such as battery, device type (motion or door), signal strength, etc. will be shown. Icons that depend on the device_class will also automatically update on your UI once this is received.
+Restart HA and the sensors you have already bound to the hub will show up in your entities as `off` with `assumed_state: true` and no `device_class`. These will update once the sensor triggers once.
+* This is because the hub will not know the state / type of the sensor until it triggers for the first time. The first time the component hears from the sensor, the state and the rest of the fields such as battery, device type (motion or door), signal strength, etc. will be shown. Icons that depend on the `device_class` will also automatically update on your UI once this is received.
+
+Entities will show up as `binary_sensor.<MAC>` for example (`binary_sensor.777A4656`).
 
 ## Services
 ### `wyzesense.scan`

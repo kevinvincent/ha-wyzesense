@@ -39,7 +39,7 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
 ### Troubleshooting
 * Permission denied /dev/hidraw0
   * Info
-    * If you see this error on a Hassio installation please follow Reporting an Issue below.
+    * If you see this error on a Hassio installation please follow Reporting an Issue below. It is most likely an issue with your specific setup.
     * This is known to occur on Hassbian. This occurs when the group homeassistant is denied from accessing hidraw devices.
   * Solution
     * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your instance and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="homeassistant"`

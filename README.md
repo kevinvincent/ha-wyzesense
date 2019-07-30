@@ -1,5 +1,5 @@
 # WYZE Sense Home Assistant Component
-Note: You must be running Home Assistant > 0.92
+Note: You must be running Home Assistant > 0.92. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93).
 
 ## Installation
 1. Download this repository as a ZIP (green button, top right)

@@ -1,4 +1,5 @@
 # WYZE Sense Home Assistant Component
+Note: You must be running Home Assistant > 0.92
 
 ## Installation
 1. Download this repository as a ZIP (green button, top right)

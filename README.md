@@ -29,11 +29,10 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
 
 ## Services
 ### `wyzesense.scan`
-* Scans for new sensors for 30s. Call this service and then press the button on the side of a sensor with a pin until the red led flashes three times. It will now be bound and show up in your entities.
+* Call this service and then within 30 seconds, press the button on the side of a sensor with a pin until the red led flashes three times. The sensor will now be bound and show up in your entities.
 
 ### `wyzesense.remove`
-* Removes a sensor
-* Make sure you call this service with the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
+* Removes a sensor. Make sure you call this service with the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
 
 ## Running into issues?
 

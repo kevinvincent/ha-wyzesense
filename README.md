@@ -44,6 +44,7 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
     * This is known to occur on Hassbian. This occurs when the group homeassistant is denied from accessing hidraw devices.
   * Solution
     * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your instance and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="homeassistant"`
+    * Ensure the user running Home Assistant belongs to the homeassistant group
 
 ### Reporting an Issue
 1. Setup your logger to print debug messages for this component using:

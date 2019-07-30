@@ -28,11 +28,11 @@ Entities will show up as `binary_sensor.<MAC>` for example (`binary_sensor.777A4
 
 ## Services
 ### `wyzesense.scan`
-* Scans for new sensors for 30s. Press the button on the side of a sensor with a pin until the red led flashes three times. It will now be bound and show up in your entities.
+* Scans for new sensors for 30s. Call this service and then press the button on the side of a sensor with a pin until the red led flashes three times. It will now be bound and show up in your entities.
 
 ### `wyzesense.remove`
 * Removes a sensor
-* Make sure you provide the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
+* Make sure you call this service with the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
 
 ## Running into issues?
 

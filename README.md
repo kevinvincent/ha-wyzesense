@@ -46,7 +46,7 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
   * Contact
     * State `on`: Sensor open
     * State `off`: Sensor closed
-    * Contact sensors will report `off` when the magnetized portion is within ~1 inch of the contact sensor body.
+    * Wyze contact sensors will report `off` when the magnetized portion is within ~1 inch of the contact sensor body.
 
 ## Services
 ### `wyzesense.scan`

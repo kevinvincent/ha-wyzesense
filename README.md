@@ -9,14 +9,13 @@ You do NOT need the Wyze Cam to use the sensors with this component. However, th
 3. Go to Configuration below
 
 ## Installation (Manual)
-1. Download this repository as a ZIP (green button, top right)
-2. Unzip the archive
-3. Copy `/custom_components/wyzesense` to your `<config_dir>/custom_components/` directory
+1. Download this repository as a ZIP (green button, top right) and unzip the archive
+2. Copy `/custom_components/wyzesense` to your `<config_dir>/custom_components/` directory
    * You will need to create the `custom_components` folder if it does not exist
    * On Hassio the final location will be `/config/custom_components/wyzesense`
    * On Hassbian the final location will be `/home/homeassistant/.homeassistant/custom_components/wyzesense`
-5. Plug in the WYZE Sense hub (the usb device) into an open port on your device.
-6. Go to Configuration below
+3. Plug in the WYZE Sense hub (the usb device) into an open port on your device.
+4. Go to Configuration below
 
 ## Configuration
 Add the following to your configuration file

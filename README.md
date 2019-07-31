@@ -66,3 +66,5 @@ logger:
 4. File an issue in this Github Repository containing your HA log (Developer section > Info > Load Full Home Assistant Log)
    * The log file can also be found at `/<config_dir>/home-assistant.log`
 
+#
+*Special thanks to HcLX and his work on https://github.com/HclX/WyzeSensePy which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.*

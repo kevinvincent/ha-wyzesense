@@ -3,7 +3,8 @@ You do NOT need the Wyze Cam to use the sensors with this component. However, th
 
 *Note: You must be running **Home Assistant > 0.92**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93).*
 
-## Installation (HACS) *Preferred - auto updating*
+## Installation (HACS) - easy updates
+0. Have [HACS](https://custom-components.github.io/hacs/installation/manual/) installed
 1. Add `https://github.com/kevinvincent/ha-wyzesense` as a [custom repository](https://custom-components.github.io/hacs/usage/settings/#add-custom-repositories) as Type: Integration
 2. Click install under "Wyze Sense Component"
 3. Go to Configuration below

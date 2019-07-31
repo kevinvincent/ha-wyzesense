@@ -1,7 +1,7 @@
 {
     "domain": "wyzesense",
     "name": "Wyze Sense Component",
-    "documentation": "https://github.com/kevinvincent/wyzesense",
+    "documentation": "https://github.com/kevinvincent/ha-wyzesense",
     "requirements": ["wyzesense==0.0.3"],
     "dependencies": [],
     "codeowners": ["@kevinvincent"],

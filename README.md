@@ -41,7 +41,7 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
   * Motion
     * State `on`: Motion Detected
     * State `off`: No Motion Detected
-    * Wyze motion sensors will keep reporting the `on` state for 40 seconds after the last motion is detected. This is non configurable but in practice this isn't a big deal and is usually the behavior you want.
+    * Wyze motion sensors will keep reporting the `on` state for 40 seconds after the last motion is detected. This is non configurable, but in practice it isn't a big deal and usually makes automations simpler.
   * Door
     * State `on`: Sensor open
     * State `off`: Sensor closed

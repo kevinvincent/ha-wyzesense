@@ -37,6 +37,8 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
 * Entities will show up as `binary_sensor.<MAC>` for example (`binary_sensor.777A4656`).
   * As like any other entity you can change the entity id and friendly name from the states page, which will stick even after restarts.
 
+* Call the services below to add and remove sensors to your WYZE sense hub.
+
 ## Services
 ### `wyzesense.scan`
 * Call this service and then within 30 seconds, press the button on the side of a sensor with a pin until the red led flashes three times. The sensor will now be bound and show up in your entities.

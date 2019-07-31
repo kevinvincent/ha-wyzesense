@@ -1,6 +1,10 @@
 # Home Assistant - WYZE Sense Component
 You do NOT need the Wyze Cam to use the sensors with this component. However, they're great cameras so you should buy them ;)
 
+Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on https://github.com/HclX/WyzeSensePy which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.
+
+Need a non Home Assistant solution? Check out dariopb's https://github.com/dariopb/ha-gosenseapp for a Docker and MQTT based version***
+
 *Note: You must be running **Home Assistant > 0.92**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93).*
 
 ## Installation (HACS)
@@ -65,8 +69,3 @@ logger:
 3. Verify you're still having the issue
 4. File an issue in this Github Repository containing your HA log (Developer section > Info > Load Full Home Assistant Log)
    * The log file can also be found at `/<config_dir>/home-assistant.log`
-
-#
-***Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on https://github.com/HclX/WyzeSensePy which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.***
-
-***Need a non Home Assistant solution? Check out dariopb's https://github.com/dariopb/ha-gosenseapp for a Docker and MQTT based version***

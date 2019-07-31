@@ -1,4 +1,4 @@
-# WYZE Sense Home Assistant Component
+# Home Assistant - WYZE Sense Component
 You do NOT need the Wyze Cam to use the sensors with this component. However, they're great cameras so you should buy them ;)
 
 *Note: You must be running **Home Assistant > 0.92**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93).*

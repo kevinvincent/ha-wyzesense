@@ -1,5 +1,4 @@
 # Home Assistant - WYZE Sense Component
-You do NOT need the Wyze Cam to use the sensors with this component. However, they're great cameras so you should buy them ;)
 
 > Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on [WyzeSensePy](https://github.com/HclX/WyzeSensePy) which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.
 
@@ -38,6 +37,16 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
   * As like any other entity you can change the entity id and friendly name from the states page, which will stick even after restarts.
 
 * Call the services below to add and remove sensors from your WYZE sense hub.
+
+* Notes on Individual Sensors
+  * Motion
+    * State `on`: Motion Detected
+    * State `off`: No Motion Detected
+    * Wyze motion sensors will report the `on` state for 40 seconds after the last motion is detected. In practice this isn't a big deal and is usually the behaviour you want. Just something to be aware of.
+  * Contact
+    * State `on`: Sensor open
+    * State `off`: Sensor closed
+    * Contact sensors will report `off` when the magnetized portion is within ~1 inch of the contact sensor body.
 
 ## Services
 ### `wyzesense.scan`

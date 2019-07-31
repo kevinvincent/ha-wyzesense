@@ -8,7 +8,8 @@
 0. Have [HACS](https://custom-components.github.io/hacs/installation/manual/) installed
 1. Add `https://github.com/kevinvincent/ha-wyzesense` as a [custom repository](https://custom-components.github.io/hacs/usage/settings/#add-custom-repositories) as Type: Integration
 2. Click install under "Wyze Sense Component"
-3. Go to Configuration below
+3. Plug in the WYZE Sense hub (the usb device) into an open port on your device.
+4. Go to Configuration below
 
 ## Installation (Manual)
 1. Download this repository as a ZIP (green button, top right) and unzip the archive

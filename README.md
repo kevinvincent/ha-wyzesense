@@ -43,10 +43,10 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
     * State `on`: Motion Detected
     * State `off`: No Motion Detected
     * Wyze motion sensors will report the `on` state for 40 seconds after the last motion is detected. In practice this isn't a big deal and is usually the behaviour you want. Just something to be aware of.
-  * Contact
+  * Door
     * State `on`: Sensor open
     * State `off`: Sensor closed
-    * Wyze contact sensors will report `off` when the magnetized portion is within ~1 inch of the contact sensor body.
+    * Wyze door sensors will report `off` when the magnetized portion is within ~1 inch of the door sensor body.
 
 ## Services
 ### `wyzesense.scan`

@@ -67,6 +67,6 @@ logger:
    * The log file can also be found at `/<config_dir>/home-assistant.log`
 
 #
-***Special thanks to HcLX and his work on https://github.com/HclX/WyzeSensePy which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.***
+***Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on https://github.com/HclX/WyzeSensePy which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.***
 
 ***Need a non Home Assistant solution? Check out dariopb's https://github.com/dariopb/ha-gosenseapp for a Docker and MQTT based version***

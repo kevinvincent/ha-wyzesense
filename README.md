@@ -3,7 +3,7 @@ You do NOT need the Wyze Cam to use the sensors with this component. However, th
 
 > Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on [WyzeSensePy](https://github.com/HclX/WyzeSensePy) which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.
 
-*Note: You must be running **Home Assistant > 0.92**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93).*
+*Note: You must be running **Home Assistant 0.92 or later**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93).*
 
 ## Installation (HACS)
 0. Have [HACS](https://custom-components.github.io/hacs/installation/manual/) installed

@@ -2,15 +2,14 @@
 *Note: You must be running **Home Assistant > 0.92**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93).*
 
 ## Installation (HACS)
-1. Add `https://github.com/kevinvincent/ha-wyzesense` as a [custom repository](https://custom-components.github.io/hacs/usage/settings/#add-custom-repositories)
-2. Click install under "wyzesense"
+1. Add `https://github.com/kevinvincent/ha-wyzesense` as a [custom repository](https://custom-components.github.io/hacs/usage/settings/#add-custom-repositories) as type: Integration
+2. Click install under "Wyze Sense Component"
 3. Go to Configuration below
 
 ## Installation (Manual)
 1. Download this repository as a ZIP (green button, top right)
 2. Unzip the archive
-3. Rename to just `wyzesense`
-4. Place `wyzesense` under `<config_dir>/custom_components/`
+3. Copy `/custom_components/wyzesense` to your `<config_dir>/custom_components/` directory
    * You will need to create the `custom_components` folder if it does not exist
    * On Hassio the final location will be `/config/custom_components/wyzesense`
    * On Hassbian the final location will be `/home/homeassistant/.homeassistant/custom_components/wyzesense`

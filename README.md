@@ -55,9 +55,7 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
 ### `wyzesense.remove`
 * Removes a sensor. Make sure you call this service with the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
 
-## Running into issues?
-
-### Troubleshooting
+## Troubleshooting
 * Permission denied /dev/hidraw0
   * Additional Information
     * If you see this error on a Hassio installation please follow Reporting an Issue below. It is most likely an issue with your specific setup.
@@ -66,7 +64,7 @@ Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mou
     * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your machine and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="homeassistant"`
     * Ensure the user running Home Assistant belongs to the homeassistant group
 
-### Reporting an Issue
+## Reporting an Issue
 1. Setup your logger to print debug messages for this component using:
 ```yaml
 logger:

@@ -8,12 +8,14 @@ import logging
 import voluptuous as vol
 
 from homeassistant.const import CONF_FILENAME, CONF_DEVICE, \
-	EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, \
-	ATTR_STATE, ATTR_DEVICE_CLASS, DEVICE_CLASS_SIGNAL_STRENGTH, \
-	DEVICE_CLASS_TIMESTAMP
+    EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, \
+    ATTR_STATE, ATTR_DEVICE_CLASS, DEVICE_CLASS_SIGNAL_STRENGTH, \
+    DEVICE_CLASS_TIMESTAMP
 
 from homeassistant.components.binary_sensor import PLATFORM_SCHEMA, \
-	BinarySensorDevice, DEVICE_CLASS_MOTION, DEVICE_CLASS_DOOR
+    BinarySensorDevice, DEVICE_CLASS_MOTION, DEVICE_CLASS_DOOR
+
+from homeassistant.helpers.restore_state import RestoreEntity
 
 import homeassistant.helpers.config_validation as cv
 
@@ -21,9 +23,11 @@ DOMAIN = "wyzesense"
 
 ATTR_MAC = "mac"
 ATTR_AVAILABLE = "available"
+CONF_INITIAL_STATE = "initial_state"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Required(CONF_DEVICE): cv.string
+    vol.Required(CONF_DEVICE): cv.string,
+    vol.Optional(CONF_INITIAL_STATE, default={}): vol.Schema({cv.string : vol.In(["on","off"])})
 })
 
 SERVICE_SCAN = 'scan'
@@ -43,18 +47,20 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     _LOGGER.debug("Attempting to open connection to hub at " + config[CONF_DEVICE])
 
+    forced_initial_states = config[CONF_INITIAL_STATE]
     entities = {}
 
     def on_event(ws, event):
-        if event.BatteryLevel != 0 and event.SignalStrength != 0 :
+        if event.Type == 'state':
+            (sensor_type, sensor_state, sensor_battery, sensor_signal) = event.Data
             data = {
                 ATTR_AVAILABLE: True,
                 ATTR_MAC: event.MAC,
-                ATTR_STATE: 1 if event.State == "open" or event.State == "active" else 0,
-                ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION if event.Type == "motion" else DEVICE_CLASS_DOOR ,
+                ATTR_STATE: 1 if sensor_state == "open" or sensor_state == "active" else 0,
+                ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION if sensor_type == "motion" else DEVICE_CLASS_DOOR ,
                 DEVICE_CLASS_TIMESTAMP: event.Timestamp.isoformat(),
-                DEVICE_CLASS_SIGNAL_STRENGTH: event.SignalStrength,
-                ATTR_BATTERY_LEVEL: event.BatteryLevel
+                DEVICE_CLASS_SIGNAL_STRENGTH: sensor_signal,
+                ATTR_BATTERY_LEVEL: sensor_battery
             }
 
             _LOGGER.debug(data)
@@ -76,15 +82,16 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
     for mac in result:
         _LOGGER.debug("Registering Sensor Entity: %s" % mac)
 
+        initial_state = forced_initial_states.get(mac)
+
         data = {
             ATTR_AVAILABLE: False,
             ATTR_MAC: mac,
-            ATTR_STATE: 0,
-            ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION
+            ATTR_STATE: 0
         }
 
         if not mac in entities:
-            new_entity = WyzeSensor(data)
+            new_entity = WyzeSensor(data, should_restore = True, override_restore_state = initial_state)
             entities[mac] = new_entity
             add_entites([new_entity])
 
@@ -105,19 +112,41 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
         toDelete = entities[mac]
         hass.add_job(toDelete.async_remove)
         del entities[mac]
-        _LOGGER.debug("Removed Sensor Entity: %s" % mac)
+        _LOGGER.debug("Removed Sensor: %s" % mac)
 
     hass.services.register(DOMAIN, SERVICE_SCAN, on_scan, SERVICE_SCAN_SCHEMA)
     hass.services.register(DOMAIN, SERVICE_REMOVE, on_remove, SERVICE_REMOVE_SCHEMA)
 
 
-class WyzeSensor(BinarySensorDevice):
+class WyzeSensor(BinarySensorDevice, RestoreEntity):
     """Class to hold Hue Sensor basic info."""
 
-    def __init__(self, data):
+    def __init__(self, data, should_restore = False, override_restore_state = None):
         """Initialize the sensor object."""
         _LOGGER.debug(data)
         self._data = data 
+        self._should_restore = should_restore
+        self._override_restore_state = override_restore_state
+
+    async def async_added_to_hass(self):
+        """Run when entity about to be added."""
+        await super().async_added_to_hass()
+        
+        if self._should_restore:
+
+            last_state = await self.async_get_last_state()
+            
+            if last_state is not None:
+                actual_state = last_state.state
+
+                if self._override_restore_state is not None:
+                    actual_state = self._override_restore_state
+
+                self._data = {
+                    ATTR_STATE: 1 if actual_state == "on" else 0,
+                    ATTR_AVAILABLE: False,
+                    **last_state.attributes
+                }
 
     @property
     def assumed_state(self):
@@ -145,9 +174,8 @@ class WyzeSensor(BinarySensorDevice):
     @property
     def device_state_attributes(self):
         """Attributes."""
-        return {
-            DEVICE_CLASS_SIGNAL_STRENGTH: self._data[DEVICE_CLASS_SIGNAL_STRENGTH],
-            DEVICE_CLASS_TIMESTAMP: self._data[DEVICE_CLASS_TIMESTAMP],
-            ATTR_BATTERY_LEVEL: self._data[ATTR_BATTERY_LEVEL],
-            ATTR_MAC: self._data[ATTR_MAC]
-        } if self._data[ATTR_AVAILABLE] else {ATTR_MAC: self._data[ATTR_MAC]}
+        attributes = self._data.copy()
+        del attributes[ATTR_STATE]
+        del attributes[ATTR_AVAILABLE]
+
+        return attributes

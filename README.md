@@ -28,9 +28,18 @@ binary_sensor:
 ```
 Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mounted somewhere else then add the appropriate device.
 
+```yaml
+binary_sensor:
+  - platform: wyzesense
+    device: "/dev/hidraw0"
+    initial_state:
+      77793176: "on"
+      77793193: "off"
+```
+By default, the component will restore the last state of the entity prior to a restart. If sensors change state during a restart, these may not be reflected. In order to combat this you can specify an initial_state for each sensor by mac address that will be set upon a restart.
+
 ## Usage
-* Restart HA and the sensors you have already bound to the hub (using the wyze app for example) will show up in your entities as `off` with `assumed_state: true` and no `device_class`. These will update once the sensor triggers once.
-  * This is because the hub will not know the state / type of the sensor until it triggers for the first time. The first time the component hears from the sensor, the state and the rest of the fields such as battery, device type (motion or door), signal strength, etc. will be shown. Icons that depend on the `device_class` will also automatically update on your UI once this is received.
+* Restart HA and the sensors you have already bound to the hub (using the wyze app for example) will show up in your entities as `off` with `assumed_state: true` and no `device_class`. These will update and other attributes will be added once the component hears from the sensor for the first time.
 
 * Entities will show up as `binary_sensor.<MAC>` for example (`binary_sensor.777A4656`).
   * As like any other entity you can change the entity id and friendly name from the states page, which will stick even after restarts.

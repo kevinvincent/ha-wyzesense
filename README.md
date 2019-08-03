@@ -2,7 +2,7 @@
 
 > Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on [WyzeSensePy](https://github.com/HclX/WyzeSensePy) which is the core of this component. His reverse engineering talents and subsequent development of WyzeSensePy made it quite easy to connect with WYZE sense devices.
 
-*Note: You must be running **Home Assistant 0.92 or later**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93). This is not guaranteed to receive updates. In fact, it is already a little out of date (no state restore) so this is highly discouraged.*
+*Note: You must be running **Home Assistant 0.92 or later**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93). This file is not guaranteed to receive updates. In fact, it is already a little out of date (no state restore) so this is highly discouraged.*
 
 ## Installation (HACS)
 0. Have [HACS](https://custom-components.github.io/hacs/installation/manual/) installed, this will allow you to easily update

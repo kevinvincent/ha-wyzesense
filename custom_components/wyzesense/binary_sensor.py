@@ -104,15 +104,30 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     # Configure Service
     def on_scan(call):
-        ws.Scan()
+        result = ws.Scan()
+        if result:
+            notification = "Sensor found and added as: binary_sensor.%s (unless you have customized the entitiy id prior).<br/>To add more sensors, call wyzesense.scan again.<br/><br/>More Info: type=%d, version=%d" % result
+            hass.components.persistent_notification.create(notification, DOMAIN)
+            _LOGGER.debug(notification)
+        else:
+            notification = "Scan completed with no sensor found."
+            hass.components.persistent_notification.create(notification, DOMAIN)
+            _LOGGER.debug(notification)
 
     def on_remove(call):
         mac = call.data.get(ATTR_MAC).upper()
-        ws.Delete(mac)
-        toDelete = entities[mac]
-        hass.add_job(toDelete.async_remove)
-        del entities[mac]
-        _LOGGER.debug("Removed Sensor: %s" % mac)
+        if entities.get(mac):
+            ws.Delete(mac)
+            toDelete = entities[mac]
+            hass.add_job(toDelete.async_remove)
+            del entities[mac]
+            notification = "Successfully Removed Sensor: %s" % mac
+            hass.components.persistent_notification.create(notification, DOMAIN)
+            _LOGGER.debug(notification)
+        else:
+            notification = "No sensor with mac %s found to remove" % mac
+            hass.components.persistent_notification.create(notification, DOMAIN)
+            _LOGGER.debug(notification)
 
     hass.services.register(DOMAIN, SERVICE_SCAN, on_scan, SERVICE_SCAN_SCHEMA)
     hass.services.register(DOMAIN, SERVICE_REMOVE, on_remove, SERVICE_REMOVE_SCHEMA)

@@ -57,6 +57,8 @@ By default, the component will restore the last state of the entity prior to a r
     * Wyze door sensors will report `off` when the magnetized portion is within ~1 inch of the door sensor body.
 
 ## Services
+For all services a persistent notification will be sent for both successes and failures.
+
 ### `wyzesense.scan`
 * Call this service and then within 30 seconds, press the button on the side of a sensor with a pin until the red led flashes three times. The sensor will now be bound and show up in your entities. You will have to call this service once at a time for each sensor you want to add.
 

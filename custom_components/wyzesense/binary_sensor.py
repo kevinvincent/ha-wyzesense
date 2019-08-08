@@ -106,7 +106,7 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
     def on_scan(call):
         result = ws.Scan()
         if result:
-            notification = "Sensor found and added as: binary_sensor.%s (unless you have customized the entitiy id prior).<br/>To add more sensors, call wyzesense.scan again.<br/><br/>More Info: type=%d, version=%d" % result
+            notification = "Sensor found and added as: binary_sensor.wyzesense_%s (unless you have customized the entitiy id prior).<br/>To add more sensors, call wyzesense.scan again.<br/><br/>More Info: type=%d, version=%d" % result
             hass.components.persistent_notification.create(notification, DOMAIN)
             _LOGGER.debug(notification)
         else:

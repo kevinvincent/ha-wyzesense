@@ -36,7 +36,7 @@ binary_sensor:
       77793176: "on"
       77793193: "off"
 ```
-By default, the component will restore the last state of the entity prior to a restart. If sensors change state during a restart, these may not be reflected. In order to combat this you can optionally specify an initial_state for sensors (by mac address) that will be set upon a restart.
+By default, the component will restore the last state of the entity prior to a restart. If sensors change state during a restart, these may not be reflected. In order to combat this you can optionally specify an initial_state for sensors (by mac address) that will be set upon a restart. Be sure to put quotes around "on" or "off" so that they are strings not booleans.
 
 ## Usage
 * Restart HA and the sensors you have already bound to the hub (using the wyze app for example) will show up in your entities as `off` with `assumed_state: true` and no `device_class`. These will update and other attributes will be added once the component hears from the sensor for the first time.

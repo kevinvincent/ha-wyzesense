@@ -41,7 +41,7 @@ By default, the component will restore the last state of the entity prior to a r
 ## Usage
 * Restart HA and the sensors you have already bound to the hub (using the wyze app for example) will show up in your entities as `off` with `assumed_state: true` and no `device_class`. These will update and other attributes will be added once the component hears from the sensor for the first time.
 
-* Entities will show up as `binary_sensor.<MAC>` for example (`binary_sensor.777A4656`).
+* Entities will show up as `binary_sensor.wyzesense_<MAC>` for example (`binary_sensor.wyzesense_777A4656`).
   * As like any other entity you can change the entity id and friendly name from the states page, which will stick even after restarts.
 
 * Call the services below to add and remove sensors from your WYZE sense hub.

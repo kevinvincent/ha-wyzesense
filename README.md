@@ -55,6 +55,9 @@ By default, the component will restore the last state of the entity prior to a r
     * State `on`: Sensor open
     * State `off`: Sensor closed
     * Wyze door sensors will report `off` when the magnetized portion is within ~1 inch of the door sensor body.
+* Notes on selected Sensor Attributes:
+  * `signal_strength`: This is the absolute value of the RSSI, not a percentage. As such, lower is stronger.
+  * `battery_level`: The sensor does a basic calculation with the battery voltage. Because of this, battery percentage may be higher than 100% when you first get a sensor. Enjoy the longer battery life :)
 
 ## Services
 For all services a persistent notification will be sent for both successes and failures.

@@ -63,7 +63,7 @@ By default, the component will restore the last state of the entity prior to a r
 For all services a persistent notification will be sent for both successes and failures.
 
 ### `wyzesense.scan`
-* Call this service and then within 30 seconds, press the button on the side of a sensor with a pin until the red led flashes three times. The sensor will now be bound and show up in your entities. You will have to call this service once at a time for each sensor you want to add.
+* Call this service and then within 30 seconds, insert a pin into the hole on the side of a sensor and push until the red led flashes three times. The sensor will now be bound and show up in your entities. You will have to call this service once at a time for each sensor you want to add.
 
 ### `wyzesense.remove`
 * Removes a sensor. Make sure you call this service with the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.

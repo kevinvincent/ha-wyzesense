@@ -84,6 +84,7 @@ logger:
   default: info
   logs:
     custom_components.wyzesense: debug
+    wyzesense.gateway: debug
 ```
 2. Restart HA
 3. Verify you're still having the issue

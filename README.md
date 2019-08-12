@@ -17,12 +17,6 @@
    * On Hassio the final location will be `/config/custom_components/wyzesense`
    * On Hassbian the final location will be `/home/homeassistant/.homeassistant/custom_components/wyzesense`
 3. Plug in the WYZE Sense hub (the usb device) into an open port on your device.
-4. Run dmesg | grep hidraw to find out what hidraw number the bridge grabbed. 
-
-
-
-
-
 
 ## Configuration
 Add the following to your configuration file
@@ -32,7 +26,7 @@ binary_sensor:
   - platform: wyzesense
     device: "/dev/hidraw0"
 ```
-Most likely your device will be mounted to `/dev/hidraw0`. If you know it is mounted somewhere else then add the appropriate device.
+Most likely your device will be mounted to `/dev/hidraw0`. You can confirm the hidraw name of the device by running `dmesg | grep hidraw` to find out what hidraw number the bridge grabbed.
 
 ```yaml
 binary_sensor:

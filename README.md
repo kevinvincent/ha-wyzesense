@@ -76,7 +76,8 @@ For all services a persistent notification will be sent for both successes and f
   * Solution
     * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your machine and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="homeassistant"`
     * Ensure the user running Home Assistant belongs to the homeassistant group
-
+* TimeoutError: _DoCommand
+  * Ensure that you have updated to the latest component code. If you still see this error follow Reporting an Issue below.
 ## Reporting an Issue
 1. Setup your logger to print debug messages for this component using:
 ```yaml
@@ -89,4 +90,5 @@ logger:
 2. Restart HA
 3. Verify you're still having the issue
 4. File an issue in this Github Repository containing your HA log (Developer section > Info > Load Full Home Assistant Log)
+   * Please include details about your setup (Pi, NUC, etc, docker?, HASSOS?)
    * The log file can also be found at `/<config_dir>/home-assistant.log`

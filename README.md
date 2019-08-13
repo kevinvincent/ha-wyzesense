@@ -69,13 +69,33 @@ For all services a persistent notification will be sent for both successes and f
 * Removes a sensor. Make sure you call this service with the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
 
 ## Troubleshooting
-* Permission denied /dev/hidraw0
+
+### Permission denied /dev/hidraw0
   * Additional Information
     * If you see this error on a Hassio installation please follow Reporting an Issue below. It is most likely an issue with your specific setup.
     * This is known to occur on Hassbian. This occurs when the group homeassistant is denied from accessing hidraw devices.
   * Solution
     * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your machine and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="homeassistant"`
     * Ensure the user running Home Assistant belongs to the homeassistant group
+
+### If HUB was previous installed in the camera and moved to your computer do the following
+1. Go to services
+
+2. Select wyzesense.remove and past the following json command and change the _**mac address**_. You will need to add a line for each sensor by putting a comma after each sensor until you reach the last one.
+
+{
+"mac" : "_**777A4656**_",
+
+"mac" : "_**777A4657**_",
+
+"mac" : "_**777A4658**_"
+}
+
+3. Reboot home assistant
+
+4. Add each sensor back one at a time by going to services
+
+5. Select wyzesense.scan and push the button on the sensor
 
 ## Reporting an Issue
 1. Setup your logger to print debug messages for this component using:

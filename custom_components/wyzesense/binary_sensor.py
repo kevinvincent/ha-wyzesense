@@ -6,6 +6,7 @@ wyzesense integration
 
 import logging
 import voluptuous as vol
+from retry import retry
 
 from homeassistant.const import CONF_FILENAME, CONF_DEVICE, \
     EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, \
@@ -73,7 +74,11 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
                 entities[event.MAC]._data = data
                 entities[event.MAC].schedule_update_ha_state()
 
-    ws = wyzesense.Open(config[CONF_DEVICE], on_event)
+    @retry(TimeoutError, tries=10, delay=1, logger=_LOGGER)
+    def beginConn():
+        return wyzesense.Open(config[CONF_DEVICE], on_event)
+
+    ws = beginConn()
 
     # Get bound sensors
     result = ws.List()

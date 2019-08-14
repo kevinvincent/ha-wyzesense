@@ -7,7 +7,7 @@
 ## Installation (HACS) - Highly Recommended
 0. Have [HACS](https://custom-components.github.io/hacs/installation/manual/) installed, this will allow you to easily update
 1. Add `https://github.com/kevinvincent/ha-wyzesense` as a [custom repository](https://custom-components.github.io/hacs/usage/settings/#add-custom-repositories) as Type: Integration
-2. Click install under "Wyze Sense Component"
+2. Click install under "Wyze Sense Component", restart your instance.
 3. Plug in the WYZE Sense hub (the usb device) into an open port on your device.
 
 ## Installation (Manual)

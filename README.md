@@ -4,7 +4,7 @@
 
 *Note: You must be running **Home Assistant 0.92 or later**. If you run an older version you may follow the instructions below but replace binary_sensor.py with [this file](https://gist.github.com/kevinvincent/375a063723ecd8b0b06943e3d28ebc93). This file is not guaranteed to receive updates. In fact, it is already a little out of date (no state restore, no service notifications) so this is highly discouraged.*
 
-## Installation (HACS)
+## Installation (HACS) - Highly Recommended
 0. Have [HACS](https://custom-components.github.io/hacs/installation/manual/) installed, this will allow you to easily update
 1. Add `https://github.com/kevinvincent/ha-wyzesense` as a [custom repository](https://custom-components.github.io/hacs/usage/settings/#add-custom-repositories) as Type: Integration
 2. Click install under "Wyze Sense Component"

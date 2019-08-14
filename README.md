@@ -2,8 +2,7 @@
 
 > Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on [WyzeSensePy](https://github.com/HclX/WyzeSensePy) which is the core of this component. His reverse engineering talents and development of WyzeSensePy made it quite easy to connect with WYZE sense devices.
 
-Are you a visual person? Here's a video walkthrough of the setup and configuration: https://www.youtube.com/watch?v=19UCwf4uidQ
-Check this README for the most up to date information.
+Are you a visual person? Here's a [video walkthrough](https://www.youtube.com/watch?v=19UCwf4uidQ) of the setup and configuration. Check this README for the most up to date information.
 
 ## Installation (HACS) - Highly Recommended
 0. Have [HACS](https://custom-components.github.io/hacs/installation/manual/) installed, this will allow you to easily update

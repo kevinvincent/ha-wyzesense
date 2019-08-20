@@ -4,6 +4,7 @@ wyzesense integration
 
 """
 
+from .wyzesense_custom import *
 import logging
 import voluptuous as vol
 from retry import retry
@@ -44,8 +45,8 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def setup_platform(hass, config, add_entites, discovery_info=None):
-    import wyzesense
 
+    _LOGGER.debug("WYZESENSE v0.0.4")
     _LOGGER.debug("Attempting to open connection to hub at " + config[CONF_DEVICE])
 
     forced_initial_states = config[CONF_INITIAL_STATE]
@@ -76,7 +77,7 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     @retry(TimeoutError, tries=10, delay=1, logger=_LOGGER)
     def beginConn():
-        return wyzesense.Open(config[CONF_DEVICE], on_event)
+        return Open(config[CONF_DEVICE], on_event)
 
     ws = beginConn()
 

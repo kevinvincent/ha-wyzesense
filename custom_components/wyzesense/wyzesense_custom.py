@@ -236,7 +236,7 @@ class SensorEvent(object):
         return s
 
 class Dongle(object):
-    _CMD_TIMEOUT = 2
+    _CMD_TIMEOUT = 5
 
     class CmdContext(object):
         def __init__(self, **kwargs):

@@ -76,7 +76,7 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
                 entities[event.MAC] = new_entity
                 add_entites([new_entity])
                 f = open('.storage/wyze_sensors.txt', 'a')
-                f.write(event.MAC)
+                f.write(event.MAC + "\r\n")
             else:
                 entities[event.MAC]._data = data
                 entities[event.MAC].schedule_update_ha_state()

@@ -89,9 +89,6 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     result = []
 
-    # Get bound sensors
-##    result = ws.List()
-## Loading sensors from json instead of getting from dongle
     if path.exists('.storage/wyze_sensors.txt'):
         sensor_file = open('.storage/wyze_sensors.txt')
         result = sensor_file.readlines()
@@ -101,6 +98,12 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     for mac in result:
         _LOGGER.debug("Registering Sensor Entity: %s" % mac)
+
+        mac = mac.strip()
+
+        if not len(mac) == 8:
+            _LOGGER.debug("Ignoring %s, Invalid length for MAC" % mac)
+            continue
 
         initial_state = forced_initial_states.get(mac)
 

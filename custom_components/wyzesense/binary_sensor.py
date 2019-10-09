@@ -26,10 +26,12 @@ ATTR_MAC = "mac"
 ATTR_RSSI = "rssi"
 ATTR_AVAILABLE = "available"
 CONF_INITIAL_STATE = "initial_state"
+CONF_INVERT_STATE = "invert_state"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_DEVICE): cv.string,
-    vol.Optional(CONF_INITIAL_STATE, default={}): vol.Schema({cv.string : vol.In(["on","off"])})
+    vol.Optional(CONF_INITIAL_STATE, default={}): vol.Schema({cv.string : vol.In(["on","off"])}),
+    vol.Optional(CONF_INVERT_STATE, default=[]): vol.All(cv.ensure_list, [cv.string]),
 })
 
 SERVICE_SCAN = 'scan'
@@ -50,6 +52,8 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
     _LOGGER.debug("Attempting to open connection to hub at " + config[CONF_DEVICE])
 
     forced_initial_states = config[CONF_INITIAL_STATE]
+    invert_states = config[CONF_INVERT_STATE]
+
     entities = {}
 
     def on_event(ws, event):
@@ -70,9 +74,13 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
             if not event.MAC in entities:
                 new_entity = WyzeSensor(data)
                 entities[event.MAC] = new_entity
+                if entities[event.MAC]._invert_state:
+                    entities[event.MAC]._data[ATTR_STATE] = 1 if entities[event.MAC]._data[ATTR_STATE] == 0 else 0
                 add_entites([new_entity])
             else:
                 entities[event.MAC]._data = data
+                if entities[event.MAC]._invert_state:
+                    entities[event.MAC]._data[ATTR_STATE] = 1 if entities[event.MAC]._data[ATTR_STATE] == 0 else 0
                 entities[event.MAC].schedule_update_ha_state()
 
     @retry(TimeoutError, tries=10, delay=1, logger=_LOGGER)
@@ -89,6 +97,10 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
         _LOGGER.debug("Registering Sensor Entity: %s" % mac)
 
         initial_state = forced_initial_states.get(mac)
+        if mac in invert_states:
+            invert = True
+        else:
+            invert = False
 
         data = {
             ATTR_AVAILABLE: False,
@@ -97,7 +109,7 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
         }
 
         if not mac in entities:
-            new_entity = WyzeSensor(data, should_restore = True, override_restore_state = initial_state)
+            new_entity = WyzeSensor(data, should_restore = True, override_restore_state = initial_state, invert_state = invert)
             entities[mac] = new_entity
             add_entites([new_entity])
 
@@ -142,12 +154,13 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 class WyzeSensor(BinarySensorDevice, RestoreEntity):
     """Class to hold Hue Sensor basic info."""
 
-    def __init__(self, data, should_restore = False, override_restore_state = None):
+    def __init__(self, data, should_restore = False, override_restore_state = None, invert_state = False):
         """Initialize the sensor object."""
         _LOGGER.debug(data)
         self._data = data 
         self._should_restore = should_restore
         self._override_restore_state = override_restore_state
+        self._invert_state = invert_state
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
@@ -200,3 +213,5 @@ class WyzeSensor(BinarySensorDevice, RestoreEntity):
         del attributes[ATTR_AVAILABLE]
 
         return attributes
+    
+

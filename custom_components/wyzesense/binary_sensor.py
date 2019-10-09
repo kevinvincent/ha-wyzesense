@@ -212,6 +212,4 @@ class WyzeSensor(BinarySensorDevice, RestoreEntity):
         del attributes[ATTR_STATE]
         del attributes[ATTR_AVAILABLE]
 
-        return attributes
-    
-
+        return attributes      

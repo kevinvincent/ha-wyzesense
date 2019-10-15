@@ -8,6 +8,7 @@ from .wyzesense_custom import *
 import logging
 import voluptuous as vol
 from retry import retry
+import subprocess #wmm
 
 from homeassistant.const import CONF_FILENAME, CONF_DEVICE, \
     EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, \
@@ -43,9 +44,17 @@ SERVICE_REMOVE_SCHEMA = vol.Schema({
 
 _LOGGER = logging.getLogger(__name__)
 
+def findDongle(): # wmm
+    df = subprocess.check_output(["ls", "-la", "/sys/class/hidraw"]).decode('utf-8')
+    for l in df.split('\n'):
+        if ("e024" in l and "1a86" in l) or ("E024" in l and "1A86" in l):
+            for w in l.split(' '):
+                if ("hidraw" in w):
+                    return "/dev/%s" % w
 
 def setup_platform(hass, config, add_entites, discovery_info=None):
-
+    if config[CONF_DEVICE] == 'auto': #wmm
+        config[CONF_DEVICE] = findDongle() #wmm
     _LOGGER.debug("WYZESENSE v0.0.4")
     _LOGGER.debug("Attempting to open connection to hub at " + config[CONF_DEVICE])
 
@@ -200,3 +209,4 @@ class WyzeSensor(BinarySensorDevice, RestoreEntity):
         del attributes[ATTR_AVAILABLE]
 
         return attributes
+

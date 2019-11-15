@@ -462,6 +462,9 @@ class Dongle(object):
         assert len(resp.Payload) == 1
         count = resp.Payload[0]
 
+        if count > 0:
+            count -= 1   # Decrease the sensor count by one
+
         ctx = self.CmdContext(count=count, index=0, sensors=[])
         if count > 0:
             log.debug("%d sensors reported, waiting for each one to report...", count)

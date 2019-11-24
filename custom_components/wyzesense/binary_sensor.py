@@ -8,6 +8,7 @@ from .wyzesense_custom import *
 import logging
 import voluptuous as vol
 from retry import retry
+import subprocess
 
 from homeassistant.const import CONF_FILENAME, CONF_DEVICE, \
     EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, \
@@ -28,7 +29,7 @@ ATTR_AVAILABLE = "available"
 CONF_INITIAL_STATE = "initial_state"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Required(CONF_DEVICE): cv.string,
+    vol.Optional(CONF_DEVICE, default = "auto"): cv.string, 
     vol.Optional(CONF_INITIAL_STATE, default={}): vol.Schema({cv.string : vol.In(["on","off"])})
 })
 
@@ -43,9 +44,17 @@ SERVICE_REMOVE_SCHEMA = vol.Schema({
 
 _LOGGER = logging.getLogger(__name__)
 
+def findDongle():
+    df = subprocess.check_output(["ls", "-la", "/sys/class/hidraw"]).decode('utf-8').lower()
+    for l in df.split('\n'):
+        if ("e024" in l and "1a86" in l):
+            for w in l.split(' '):
+                if ("hidraw" in w):
+                    return "/dev/%s" % w
 
 def setup_platform(hass, config, add_entites, discovery_info=None):
-
+    if config[CONF_DEVICE].lower() == 'auto': 
+        config[CONF_DEVICE] = findDongle()
     _LOGGER.debug("WYZESENSE v0.0.4")
     _LOGGER.debug("Attempting to open connection to hub at " + config[CONF_DEVICE])
 

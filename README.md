@@ -22,6 +22,15 @@ Are you a visual person? Here's a [video walkthrough](https://www.youtube.com/wa
 Add the following to your configuration file
 
 ```yaml
+- platform: wyzesense
+  device: auto
+```
+
+The custom_component will use the contents of `/sys/class/hidraw` to determine which `hidraw` device is the Wyze receiver dongle and then use that info to initialize the dongle.
+
+You can also optionally specify the hidraw device to use:
+
+```yaml
 binary_sensor:
   - platform: wyzesense
     device: "/dev/hidraw0"

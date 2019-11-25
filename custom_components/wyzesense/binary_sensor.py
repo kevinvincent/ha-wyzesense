@@ -31,7 +31,7 @@ CONF_INVERT_STATE = "invert_state"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_DEVICE, default = "auto"): cv.string, 
-    vol.Optional(CONF_INITIAL_STATE, default={}): vol.Schema({cv.string : vol.In(["on","off"]),
+    vol.Optional(CONF_INITIAL_STATE, default={}): vol.Schema({cv.string : vol.In(["on","off"])}),
     vol.Optional(CONF_INVERT_STATE, default=[]): vol.All(cv.ensure_list, [cv.string]),
 })
 

@@ -7,6 +7,10 @@ wyzesense integration
 from .wyzesense_custom import *
 import logging
 import voluptuous as vol
+import json
+import os.path
+
+from os import path
 from retry import retry
 import subprocess
 
@@ -80,6 +84,8 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
                 new_entity = WyzeSensor(data)
                 entities[event.MAC] = new_entity
                 add_entites([new_entity])
+                f = open('.storage/wyze_sensors.txt', 'a')
+                f.write(event.MAC + "\r\n")
             else:
                 entities[event.MAC]._data = data
                 entities[event.MAC].schedule_update_ha_state()
@@ -90,12 +96,23 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     ws = beginConn()
 
-    # Get bound sensors
-    result = ws.List()
-    _LOGGER.debug("%d Sensors Paired" % len(result))
+    result = []
+
+    if path.exists('.storage/wyze_sensors.txt'):
+        sensor_file = open('.storage/wyze_sensors.txt')
+        result = sensor_file.readlines()
+        sensor_file.close()
+
+    _LOGGER.debug("%d Sensors Loaded from config" % len(result))
 
     for mac in result:
         _LOGGER.debug("Registering Sensor Entity: %s" % mac)
+
+        mac = mac.strip()
+
+        if not len(mac) == 8:
+            _LOGGER.debug("Ignoring %s, Invalid length for MAC" % mac)
+            continue
 
         initial_state = forced_initial_states.get(mac)
 

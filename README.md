@@ -24,8 +24,9 @@ WARNING: This component does not work on Mac OSX systems.
 Add the following to your configuration file
 
 ```yaml
-- platform: wyzesense
-  device: auto
+binary_sensor:
+  - platform: wyzesense
+    device: auto
 ```
 
 The custom_component will use the contents of `/sys/class/hidraw` to determine which `hidraw` device is the Wyze receiver dongle and then use that info to initialize the dongle.

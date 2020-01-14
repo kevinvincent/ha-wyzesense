@@ -28,6 +28,8 @@ import homeassistant.helpers.config_validation as cv
 
 DOMAIN = "wyzesense"
 
+STORAGE = ".storage/wyzesense.json"
+
 ATTR_MAC = "mac"
 ATTR_RSSI = "rssi"
 ATTR_AVAILABLE = "available"
@@ -48,6 +50,16 @@ SERVICE_REMOVE_SCHEMA = vol.Schema({
 })
 
 _LOGGER = logging.getLogger(__name__)
+
+def getStorage(hass):
+    if not path.exists(hass.config.path(STORAGE)):
+        return []
+    with open(hass.config.path(STORAGE),'r') as f:
+        return json.load(f)
+
+def setStorage(hass,data):
+    with open(hass.config.path(STORAGE),'w') as f:
+        json.dump(data, f)
 
 def findDongle():
     df = subprocess.check_output(["ls", "-la", "/sys/class/hidraw"]).decode('utf-8').lower()
@@ -85,8 +97,12 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
                 new_entity = WyzeSensor(data)
                 entities[event.MAC] = new_entity
                 add_entites([new_entity])
-                f = open('.storage/wyze_sensors.txt', 'a')
-                f.write(event.MAC + "\r\n")
+        
+                storage = getStorage(hass)
+                if event.MAC not in storage:
+                    storage.append(event.MAC)
+                setStorage(hass, storage)
+                
             else:
                 entities[event.MAC]._data = data
                 entities[event.MAC].schedule_update_ha_state()
@@ -97,16 +113,11 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
     ws = beginConn()
 
-    result = []
+    storage = getStorage(hass)
 
-    if path.exists('.storage/wyze_sensors.txt'):
-        sensor_file = open('.storage/wyze_sensors.txt')
-        result = sensor_file.readlines()
-        sensor_file.close()
+    _LOGGER.debug("%d Sensors Loaded from storage" % len(storage))
 
-    _LOGGER.debug("%d Sensors Loaded from config" % len(result))
-
-    for mac in result:
+    for mac in storage:
         _LOGGER.debug("Registering Sensor Entity: %s" % mac)
 
         mac = mac.strip()
@@ -154,6 +165,11 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
             toDelete = entities[mac]
             hass.add_job(toDelete.async_remove)
             del entities[mac]
+
+            storage = getStorage(hass)
+            storage.remove(mac)
+            setStorage(hass, storage)
+
             notification = "Successfully Removed Sensor: %s" % mac
             hass.components.persistent_notification.create(notification, DOMAIN)
             _LOGGER.debug(notification)

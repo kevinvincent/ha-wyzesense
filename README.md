@@ -50,12 +50,13 @@ binary_sensor:
 By default, the component will restore the last state of the entity prior to a restart. If sensors change state during a restart, the change may not be reflected in HA. In order to combat this you can optionally specify an initial_state for sensors (by mac address) that will be set upon a restart. Be sure to put quotes around "on" or "off" so that they are strings not booleans.
 
 ## Usage
-* Restart HA and the sensors you have already bound to the hub (using the wyze app for example) will show up in your entities as `off` with `assumed_state: true` and no `device_class`. These will update and other attributes will be added once the component hears from the sensor for the first time.
+
+* Call the services below to add and remove sensors from your WYZE Sense hub.
+
+* If you have already bound sensors to the hub (for example using the Wyze Cam and Wyze App), they will be automatically added when the sensor is first triggered.
 
 * Entities will show up as `binary_sensor.wyzesense_<MAC>` for example (`binary_sensor.wyzesense_777A4656`).
   * As like any other entity you can change the entity id and friendly name from the states page, which will stick even after restarts.
-
-* Call the services below to add and remove sensors from your WYZE sense hub.
 
 * Notes on Individual Sensors
   * Motion

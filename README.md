@@ -21,7 +21,7 @@ WARNING: This component does not work on Mac OSX systems.
 3. Plug in the WYZE Sense hub (the usb device) into an open port on your device.
 
 ## Configuration
-Add the following to your configuration file
+Add the following to your configuration file and restart Home Assistant to load the configuration
 
 ```yaml
 - platform: wyzesense

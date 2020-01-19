@@ -23,13 +23,16 @@ WARNING: This component does not work on Mac OSX systems.
 ## Configuration
 Add the following to your configuration file and restart Home Assistant to load the configuration
 
+The custom_component will use the contents of `/sys/class/hidraw` to determine which `hidraw` device is the Wyze receiver dongle.
+
 ```yaml
 - platform: wyzesense
   device: auto
 ```
 
-The custom_component will use the contents of `/sys/class/hidraw` to determine which `hidraw` device is the Wyze receiver dongle and then use that info to initialize the dongle.
+## Advanced Configuration
 
+### Specify hidraw device
 You can also optionally specify the hidraw device to use:
 
 ```yaml
@@ -39,6 +42,10 @@ binary_sensor:
 ```
 Most likely your device will be mounted to `/dev/hidraw0`. You can confirm the hidraw name of the device by running `dmesg | grep hidraw` to find out what hidraw number the bridge grabbed.
 
+### Set initial states for sensors
+
+By default, the component will restore the last state of the entity prior to a restart. If sensors change state during a restart, the change may not be reflected in HA. In order to combat this you can optionally specify an initial_state for sensors (by mac address) that will be set upon a restart. Be sure to put quotes around "on" or "off" so that they are strings not booleans.
+
 ```yaml
 binary_sensor:
   - platform: wyzesense
@@ -47,7 +54,7 @@ binary_sensor:
       77793176: "on"
       77793193: "off"
 ```
-By default, the component will restore the last state of the entity prior to a restart. If sensors change state during a restart, the change may not be reflected in HA. In order to combat this you can optionally specify an initial_state for sensors (by mac address) that will be set upon a restart. Be sure to put quotes around "on" or "off" so that they are strings not booleans.
+
 
 ## Usage
 

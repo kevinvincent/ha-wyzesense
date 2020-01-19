@@ -88,6 +88,8 @@ For all services a persistent notification will be sent for both successes and f
 * Removes a sensor. Make sure you call this service with the correct MAC address of the sensor (which is the string of numbers and possibly letters that looks like `777A4656`). You can find this in the entity's attributes in the developer section.
 
 ## Troubleshooting
+* Passing dongle hidraw device into Docker:
+  * Please follow the steps outlined in this issue: https://github.com/kevinvincent/ha-wyzesense/issues/66
 * Permission denied /dev/hidraw0
   * Additional Information
     * If you see this error on a Hassio installation please follow Reporting an Issue below. It is most likely an issue with your specific setup.

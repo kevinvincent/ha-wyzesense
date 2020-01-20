@@ -26,8 +26,9 @@ Add the following to your configuration file and restart Home Assistant to load 
 The custom_component will use the contents of `/sys/class/hidraw` to determine which `hidraw` device is the Wyze receiver dongle.
 
 ```yaml
-- platform: wyzesense
-  device: auto
+binary_sensor:
+  - platform: wyzesense
+    device: auto
 ```
 
 ## Advanced Configuration

@@ -41,7 +41,7 @@ binary_sensor:
   - platform: wyzesense
     device: "/dev/hidraw0"
 ```
-Most likely your device will be mounted to `/dev/hidraw0`. You can confirm the hidraw name of the device by running `dmesg | grep hidraw` to find out what hidraw number the bridge grabbed. Be aware that sometimes on restarts the hidraw device will change. You can permanently fix the name (ex. in order to passthrough in Docker) by following the simple steps in [this issue](https://github.com/kevinvincent/ha-wyzesense/issues/66)
+Most likely your device will be mounted to `/dev/hidraw0`. You can confirm the hidraw name of the device by running `dmesg | grep hidraw` to find out what hidraw number the bridge grabbed. Be aware that sometimes on restarts the hidraw device number will change. You can permanently fix the name (ex. as '/dev/wyzesense' in order to passthrough in Docker) by following the simple steps in [this comment](https://github.com/kevinvincent/ha-wyzesense/issues/66#issuecomment-569470754)
 
 ### Set initial states for sensors
 
@@ -90,7 +90,7 @@ For all services a persistent notification will be sent for both successes and f
 
 ## Troubleshooting
 * Passing dongle hidraw device into Docker:
-  * Please follow the steps outlined in [this issue](https://github.com/kevinvincent/ha-wyzesense/issues/66)
+  * Please follow the steps outlined in [this comment](https://github.com/kevinvincent/ha-wyzesense/issues/66#issuecomment-569470754)
 * Permission denied /dev/hidraw0
   * Additional Information
     * If you see this error on a Hassio installation please follow Reporting an Issue below. It is most likely an issue with your specific setup.

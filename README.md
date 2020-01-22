@@ -4,7 +4,7 @@
 
 Are you a visual person? Here's a [video walkthrough](https://www.youtube.com/watch?v=19UCwf4uidQ) of the setup and configuration. Check this README for the most up to date information.
 
-WARNING: This component does not currently work on Mac OSX or Synology DSM
+WARNING: This component does not work on Mac OSX, Synology DSM, or other OSs that don't have hidraw drivers.
 
 ## Installation (HACS) - Highly Recommended
 0. Have [HACS](https://github.com/custom-components/hacs) installed, this will allow you to easily update

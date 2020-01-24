@@ -97,7 +97,7 @@ For all services a persistent notification will be sent for both successes and f
     * This is known to occur on Hassbian. This occurs when the group homeassistant is denied from accessing hidraw devices.
   * Solution
     * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your machine and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666"`
-    * Restart your system
+    * Restart your machine
 * TimeoutError: _DoCommand
   * Ensure that you have updated to the latest component code. If you still see this error follow Reporting an Issue below.
 ## Reporting an Issue

@@ -96,8 +96,8 @@ For all services a persistent notification will be sent for both successes and f
     * If you see this error on a Hassio installation please follow Reporting an Issue below. It is most likely an issue with your specific setup.
     * This is known to occur on Hassbian. This occurs when the group homeassistant is denied from accessing hidraw devices.
   * Solution
-    * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your machine and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="homeassistant"`
-    * Ensure the user running Home Assistant belongs to the homeassistant group
+    * Create / Modify the file `/etc/udev/rules.d/99-com.rules` on your machine and insert `KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666"`
+    * Restart your system
 * TimeoutError: _DoCommand
   * Ensure that you have updated to the latest component code. If you still see this error follow Reporting an Issue below.
 ## Reporting an Issue

@@ -474,11 +474,12 @@ class Dongle(object):
                 if pkt.Payload == '\x00\x00\x00\x00\x00\x00\x00':
                     self._DoSimpleCommand(Packet.DelSensor('\x00\x00\x00\x00\x00\x00\x00'))
                     log.debug("Sensor paied returend bad mac address. Unpaied.")
-                else:
-                    ctx.sensors.append(mac)
-                    ctx.index += 1
-                    if ctx.index == ctx.count:
-                        e.set()
+                    mac = 'ERROR'
+                
+                ctx.sensors.append(mac)
+                ctx.index += 1
+                if ctx.index == ctx.count:
+                    e.set()
 
             self._DoCommand(Packet.GetSensorList(count), cmd_handler, timeout=self._CMD_TIMEOUT * count)
         else:
@@ -494,14 +495,6 @@ class Dongle(object):
 
         try:
             self._Inquiry()
-
-            # self.ENR = self._GetEnr([0x30303030] * 4)
-            # self.MAC = self._GetMac()
-            # log.debug("Dongle MAC is [%s]", self.MAC)
-
-            # self.Version = self._GetVersion()
-            # log.debug("Dongle version: %s", self.Version)
-
             self._FinishAuth()
         except:
             self.Stop()

@@ -1,7 +1,7 @@
 """ 
 
 wyzesense integration
-v0.0.7
+v0.0.8-dev
 
 """
 
@@ -72,7 +72,7 @@ def findDongle():
 def setup_platform(hass, config, add_entites, discovery_info=None):
     if config[CONF_DEVICE].lower() == 'auto': 
         config[CONF_DEVICE] = findDongle()
-    _LOGGER.debug("WYZESENSE v0.0.7")
+    _LOGGER.debug("WYZESENSE v0.0.8")
     _LOGGER.debug("Attempting to open connection to hub at " + config[CONF_DEVICE])
 
     forced_initial_states = config[CONF_INITIAL_STATE]

@@ -471,10 +471,14 @@ class Dongle(object):
                 mac = pkt.Payload.decode('ascii')
                 log.debug("Sensor %d/%d, MAC:%s", ctx.index + 1, ctx.count, mac)
 
-                ctx.sensors.append(mac)
-                ctx.index += 1
-                if ctx.index == ctx.count:
-                    e.set()
+                if pkt.Payload == '\x00\x00\x00\x00\x00\x00\x00':
+                    self._DoSimpleCommand(Packet.DelSensor('\x00\x00\x00\x00\x00\x00\x00'))
+                    log.debug("Sensor paied returend bad mac address. Unpaied.")
+                else:
+                    ctx.sensors.append(mac)
+                    ctx.index += 1
+                    if ctx.index == ctx.count:
+                        e.set()
 
             self._DoCommand(Packet.GetSensorList(count), cmd_handler, timeout=self._CMD_TIMEOUT * count)
         else:

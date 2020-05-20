@@ -1,7 +1,7 @@
 """ 
 
 wyzesense integration
-v0.0.7
+v0.0.8
 
 """
 
@@ -19,8 +19,10 @@ from homeassistant.const import CONF_FILENAME, CONF_DEVICE, \
     EVENT_HOMEASSISTANT_STOP, STATE_ON, STATE_OFF, ATTR_BATTERY_LEVEL, \
     ATTR_STATE, ATTR_DEVICE_CLASS, DEVICE_CLASS_TIMESTAMP
 
-from homeassistant.components.binary_sensor import PLATFORM_SCHEMA, \
-    BinarySensorDevice, DEVICE_CLASS_MOTION, DEVICE_CLASS_DOOR
+try:
+    from homeassistant.components.binary_sensor import PLATFORM_SCHEMA, BinarySensorEntity, DEVICE_CLASS_MOTION, DEVICE_CLASS_DOOR
+except ImportError:
+    from homeassistant.components.binary_sensor import BinarySensorDevice as BinarySensorEntity, PLATFORM_SCHEMA, DEVICE_CLASS_MOTION, DEVICE_CLASS_DOOR
 
 from homeassistant.helpers.restore_state import RestoreEntity
 
@@ -182,7 +184,7 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
     hass.services.register(DOMAIN, SERVICE_REMOVE, on_remove, SERVICE_REMOVE_SCHEMA)
 
 
-class WyzeSensor(BinarySensorDevice, RestoreEntity):
+class WyzeSensor(BinarySensorEntity, RestoreEntity):
     """Class to hold Hue Sensor basic info."""
 
     def __init__(self, data, should_restore = False, override_restore_state = None):

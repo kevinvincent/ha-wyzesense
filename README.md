@@ -1,7 +1,9 @@
-# Home Assistant - WYZE Sense Component
+## No Longer Maintained
+Hi all, I'm unable to maintain this component anymore due to time constraints. Unfortunately, there is a fatal issue with these sensors that have appeared over the year. They can die permanently if the battery gets too low, https://twitter.com/WyzeCam/status/1321147804610252800. Wyze is no longer selling wyze sense v1. If and when new sensors come out, I will try to create a component for those. Apoligies to all who have bought these sensors, it seems like the sensors themselves are flawed, leading to a ton of issues after a year, and this component can't do much about it.
 
-## No Longer Maintained.
->Hi all, I'm unable to maintain this component anymore due to time constraints. Unfortunately, there are lots of issues with these sensors that have appeared over the year (they can die permanently if the battery gets too low, https://twitter.com/WyzeCam/status/1321147804610252800). It seems like wyze is deprecating these sensors as well. If and when new sensors come out, I will try to create a component for those. Apoligies to all who have bought these sensors, it seems like the sensors themselves are flawed, leading to a ton of issues after a year, and this component can't do much about it. 
+I recommend upvoting this thread on the wyze forums so that wyze knows we want an official wyzesense integration: https://forums.wyzecam.com/t/home-assistant-integration/3971
+
+# Home Assistant - WYZE Sense Component
 
 > Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on [WyzeSensePy](https://github.com/HclX/WyzeSensePy) which is the core of this component. His reverse engineering talents and development of WyzeSensePy made it quite easy to connect with WYZE sense devices.
 

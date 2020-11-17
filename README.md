@@ -60,8 +60,12 @@ binary_sensor:
     initial_state:
       77793176: "on"
       77793193: "off"
+	invert_state:
+      - 77793193
 ```
 
+
+The invert_state option will allow you to swap the on/off state that is reported back to Home Assistant.  This could be useful for people that are not using the sensors in a traditional sense.  An example of such use case might include a momentary button wired into a contact sensor, or placing one inside a door bell chime to be triggered when rung.
 
 ## Usage
 

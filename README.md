@@ -1,3 +1,5 @@
+# Forked and maintained copy of kevinvincent/ha-wyzesense
+
 # Home Assistant - WYZE Sense Component
 
 > Special thanks to [HcLX](https://hclxing.wordpress.com) and his work on [WyzeSensePy](https://github.com/HclX/WyzeSensePy) which is the core of this component. His reverse engineering talents and development of WyzeSensePy made it quite easy to connect with WYZE sense devices.

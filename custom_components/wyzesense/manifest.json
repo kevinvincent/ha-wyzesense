@@ -1,4 +1,5 @@
 {
+    "version": "0.0.10",
     "domain": "wyzesense",
     "name": "Wyze Sense Component",
     "documentation": "https://github.com/kevinvincent/wyzesense",

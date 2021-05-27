@@ -258,7 +258,7 @@ class Dongle(object):
             if alarm_data[0] == 0x01 or alarm_data[0] == 0x0E:
                 sensor_type = "switch"
                 sensor_state = "open" if alarm_data[5] == 1 else "close"
-            elif alarm_data[0] == 0x02:
+            elif alarm_data[0] == 0x02 or alarm_data[0] == 0x0F:
                 sensor_type = "motion"
                 sensor_state = "active" if alarm_data[5] == 1 else "inactive"
             else:

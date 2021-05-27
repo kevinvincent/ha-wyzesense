@@ -255,14 +255,15 @@ class Dongle(object):
         sensor_mac = sensor_mac.decode('ascii')
         alarm_data = pkt.Payload[17:]
         if event_type == 0xA2:
-            if alarm_data[0] == 0x01:
+            if alarm_data[0] == 0x01 or alarm_data[0] == 0x0E:
                 sensor_type = "switch"
                 sensor_state = "open" if alarm_data[5] == 1 else "close"
-            elif alarm_data[0] == 0x02:
+            elif alarm_data[0] == 0x02 or alarm_data[0] == 0x0F:
                 sensor_type = "motion"
                 sensor_state = "active" if alarm_data[5] == 1 else "inactive"
             else:
-                sesor_type = "uknown"
+                log.info("Unknown Sensor Type: %x", alarm_data[0])
+                sensor_type = "unknown"
                 sensor_state = "unknown"
             e = SensorEvent(sensor_mac, timestamp, "state", (sensor_type, sensor_state, alarm_data[2], alarm_data[8]))
         else:

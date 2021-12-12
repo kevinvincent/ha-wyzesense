@@ -238,7 +238,7 @@ class WyzeSensor(BinarySensorEntity, RestoreEntity):
         return self._data[ATTR_DEVICE_CLASS] if self._data[ATTR_AVAILABLE] else None
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Attributes."""
         attributes = self._data.copy()
         del attributes[ATTR_STATE]

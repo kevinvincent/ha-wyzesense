@@ -14,8 +14,8 @@ WARNING: This component does not work on Mac OSX, Synology DSM, or other OSs tha
 ## Installation (HACS) - Highly Recommended
 0. Have [HACS](https://github.com/custom-components/hacs) installed, this will allow you to easily update
 1. Add `https://github.com/kevinvincent/ha-wyzesense` as a [custom repository](https://custom-components.github.io/hacs/usage/settings/#add-custom-repositories) as Type: Integration
-2. Click install under "Wyze Sense Component", restart your instance.
-NOTE: You must have the Wyze Sense Hub removed from you device before installing the Wyze Sense Component and restarting your instance. If not, the setup may fail.
+2. Click install under "Wyze Sense Component", restart your instance.  
+NOTE: You must have the Wyze Sense Hub removed from your device before installing the Wyze Sense Component and restarting your instance. If not, the setup may fail.
 3. Plug in the Wyze Sense Hub (the usb device) into an open port on your device.
 
 ## Installation (Manual)

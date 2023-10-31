@@ -83,9 +83,13 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
     def on_event(ws, event):
         if event.Type == 'state':
             (sensor_type, sensor_state, sensor_battery, sensor_signal) = event.Data
+            if event.MAC == '\00\00\00\00\00\00\00\00':
+                mac = 'MOTION00' if sensor_type == "motion" else 'DOOR0000'
+            else:
+                mac = event.MAC
             data = {
                 ATTR_AVAILABLE: True,
-                ATTR_MAC: event.MAC,
+                ATTR_MAC: mac,
                 ATTR_STATE: 1 if sensor_state == "open" or sensor_state == "active" else 0,
                 ATTR_DEVICE_CLASS: DEVICE_CLASS_MOTION if sensor_type == "motion" else DEVICE_CLASS_DOOR ,
                 DEVICE_CLASS_TIMESTAMP: event.Timestamp.isoformat(),
@@ -95,21 +99,21 @@ def setup_platform(hass, config, add_entites, discovery_info=None):
 
             _LOGGER.debug(data)
 
-            if not event.MAC in entities:
+            if not mac in entities:
                 new_entity = WyzeSensor(data)
-                entities[event.MAC] = new_entity
+                entities[mac] = new_entity
                 add_entites([new_entity])
         
                 storage = getStorage(hass)
-                if event.MAC not in storage:
-                    storage.append(event.MAC)
+                if mac not in storage:
+                    storage.append(mac)
                 setStorage(hass, storage)
                 
             else:
-                entities[event.MAC]._data = data
+                entities[mac]._data = data
                 # From https://github.com/kevinvincent/ha-wyzesense/issues/189
                 try:
-                    entities[event.MAC].schedule_update_ha_state()
+                    entities[mac].schedule_update_ha_state()
                 except (AttributeError, AssertionError):
                     _LOGGER.debug("wyze Sensor not yet ready for update")
 
